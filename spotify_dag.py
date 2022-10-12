@@ -1,7 +1,7 @@
 from datetime import timedelta
 import datetime
 from airflow import DAG
-from airflow.operators import python
+from airflow.operators.python_operator import PythonOperator
 from airflow.utils.dates import days_ago
 
 from pipeline import run_etl_process
@@ -27,7 +27,7 @@ dag = DAG(
 def just_a_function():
     print("I'm going to show you something :)")
 
-run_etl = python(
+run_etl = PythonOperator(
     task_id='whole_spotify_etl',
     python_callable=run_spotify_etl,
     dag=dag,
